@@ -14,7 +14,7 @@ return {
                 "json", "javascript", "typescript", "tsx", "go", "yaml", "html", "css", "python",
                 "http", "prisma", "markdown", "markdown_inline", "svelte", "graphql", "bash", "lua", "vim", "dockerfile",
                 "gitignore", "query", "vimdoc", "c", "java", "rust", "ron", "cpp", "c_sharp", "hlsl",
-                "gdshader",
+                "gdshader", "gdscript",
             }
 
             treesitter.install(ensure_installed)

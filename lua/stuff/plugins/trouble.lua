@@ -1,5 +1,6 @@
 return {
 	"folke/trouble.nvim",
+    lazy = false,
 	dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
 	opts = {
 		focus = true,
@@ -16,4 +17,7 @@ return {
 		{ "<leader>xl", "<cmd>Trouble loclist toggle<CR>", desc = "Open trouble location list" },
 		{ "<leader>xt", "<cmd>Trouble todo toggle<CR>", desc = "Open todos in trouble" },
 	},
+    config = function()
+        
+    end
 }

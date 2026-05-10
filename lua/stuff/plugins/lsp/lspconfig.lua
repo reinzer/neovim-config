@@ -173,6 +173,68 @@ return {
             },
         })
 
+        vim.lsp.config("vscode-html-lsp", {
+            cmd = { "vscode-html-language-server", "--stdio" },
+            filetypes = { "html" },
+            init_options = {
+              configurationSection = { "html", "css", "javascript" },
+              embeddedLanguages = {
+                css = true,
+                javascript = true
+              }
+            },
+            --[[root_dir = function(fname)
+              return root_pattern(fname) or vim.loop.os_homedir()
+            end,]]
+            settings = {}
+        })
+
+        vim.lsp.config("vscode-timgjones-hlsl-lsp", {
+            default_config = {
+              cmd =
+                -- Install HLSL Tools with VSCode
+                -- https://marketplace.visualstudio.com/items?itemName=TimGJones.hlsltools
+                -- Check the directory yourself and set version and OS in the string below
+                "/home/void/.vscode/extensions/timgjones.hlsltools-1.1.303/bin/linux-x64/ShaderTools.LanguageServer",
+                "--stdio",
+              },
+              --root_dir = require("lspconfig").util.root_pattern(".git"), -- or whatever you prefer
+              filetypes = { "hlsl", "shader" },
+        })
+
+        vim.lsp.config("vscode-css-lsp", {
+            cmd = { "vscode-css-language-server", "--stdio" },
+            filetypes = { "css", "scss", "less" },
+            --[[root_dir = function(fname)
+                  return root_pattern(fname) or vim.loop.os_homedir()
+                end,]]
+            settings = {
+              css = {
+                validate = true
+              },
+              less = {
+                validate = true
+              },
+              scss = {
+                validate = true
+              }
+            }
+        })
+
+        vim.lsp.config("ccls", {
+            init_options = {
+                compilationDatabaseDirectory = "build";
+                index = {
+                  threads = 0;
+                };
+                clang = {
+                  excludeArgs = { "-frounding-math"} ;
+                };
+                cmd = { "ccls" },
+                filetypes = { "c", "cpp", "objc", "objcpp" }
+            }
+        })
+
         vim.lsp.config("clangd", {
             filetypes = {
                 "c",
@@ -180,7 +242,7 @@ return {
             },
             cmd = {"clangd", "--clang-tidy", "--background-index", "--limit-references=0",
                     "--completion-style=detailed",
-                    "--function-arg-placeholders",
+                    --"--function-arg-placeholders",
                     "--fallback-style=llvm",
                     "--limit-results=0",
                     "-j=8",
@@ -188,7 +250,7 @@ return {
                     --"--query-driver='/bin/g++,/bin/gcc'",
             },
             --init_options = { fallbackFlags = { '-std=c++17' }, },
-            root_markers = {
+            --[[root_markers = {
                 "compile_commands.json",
                 "compile_flags.txt",
                 "configure.ac", -- AutoTools
@@ -200,7 +262,14 @@ return {
                 "meson_options.txt",
                 "build.ninja",
                 ".git",
+            },]]
+        })
+        
+        vim.lsp.config("godot_shader_lsp", {
+            filetypes = {
+                "gdshader",
             },
+            cmd = {"/home/void/nvim/lua/stuff/plugins/lsp/gdshader-lsp", "--stdio"},
         })
 
         -- ts_ls (TypeScript/JavaScript)
@@ -327,18 +396,22 @@ return {
             --"harper_ls",
             --"csharp_ls",
             --"snyk_ls",
-            --"ccls", --doen't work
+            --"ccls",
             "pylsp",
             "jdtls",
             "shellcheck",
             "bashls",
             "asm_lsp",
-            "html-lsp",
+            --"html-lsp",
             "neocmake",
             "jsonls",
             --"glslls",
             "glsl_analyzer",
             "rust_analyzer",
+            "vscode-html-lsp",
+            --"vscode-css-lsp",
+            --"vscode-timgjones-hlsl-lsp",
+            --"godot_shader_lsp",
         })
     end,
 }
