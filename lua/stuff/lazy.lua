@@ -15,7 +15,6 @@ require("lazy").setup(
     {
         { import = "stuff.plugins" },
         { import = "stuff.plugins.lsp" },
-        --{ import = "sethy.plugins.lsp" },
     },
     {
         checker = {

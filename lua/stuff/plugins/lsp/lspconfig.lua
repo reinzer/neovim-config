@@ -321,7 +321,7 @@ return {
             "gopls",
             "astro",
             "tailwindcss",
-            --"marksman",
+            "marksman",
             "clangd",
             --"ast_grep",
             --"harper_ls",
