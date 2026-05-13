@@ -58,6 +58,8 @@ return {
                 --"glslls",
                 "glsl_analyzer",
                 "rust_analyzer",
+                "omnisharp",
+                "csharp_ls",
             },
         })
 

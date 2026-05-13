@@ -123,6 +123,9 @@ return {
                     diagnostics = {
                         globals = { "vim" },
                     },
+                    codeLens = {
+                        enable = true,
+                    },
                     completion = {
                         callSnippet = "Replace",
                     },
@@ -248,9 +251,11 @@ return {
                     "-j=8",
                     "--background-index-priority=normal",
                     --"--query-driver='/bin/g++,/bin/gcc'",
+                    "--enable-config",
+                    "--all-scopes-completion",
             },
             --init_options = { fallbackFlags = { '-std=c++17' }, },
-            --[[root_markers = {
+            root_markers = {
                 "compile_commands.json",
                 "compile_flags.txt",
                 "configure.ac", -- AutoTools
@@ -262,9 +267,9 @@ return {
                 "meson_options.txt",
                 "build.ninja",
                 ".git",
-            },]]
+            },
         })
-        
+
         vim.lsp.config("godot_shader_lsp", {
             filetypes = {
                 "gdshader",
@@ -294,6 +299,11 @@ return {
                         includeInlayVariableTypeHints = true,
                         includeInlayFunctionParameterTypeHints = true,
                     },
+                    tsserver = {
+                        experimental = {
+                            enableProjectDiagnostics = true,
+                        },
+                    },
                 },
                 javascript = {
                     validate = {
@@ -303,6 +313,11 @@ return {
                         includeInlayParameterNameHints = "all",
                         includeInlayVariableTypeHints = true,
                     },
+                    implementationsCodeLens = {
+                        enabled = true,
+                        showOnAllClassMethods = true,
+                        showOnAllClassFunctions = true,
+                    }
                 },
             },
         })
@@ -383,12 +398,13 @@ return {
         -- mason config: lua/sethy/plugins/lsp/mason.lua:22
         vim.lsp.enable({
             "lua_ls",
-            "cssls",
-            "emmet_language_server",
-            "emmet_ls",
+            --"denols",
             "ts_ls",
-            "gopls",
-            "astro",
+            "cssls",
+            --"emmet_language_server",
+            --"emmet_ls",
+            --"gopls",
+            --"astro",
             "tailwindcss",
             "marksman",
             "clangd",
@@ -412,6 +428,8 @@ return {
             --"vscode-css-lsp",
             --"vscode-timgjones-hlsl-lsp",
             --"godot_shader_lsp",
+            --"omnisharp",
+            "csharp_ls",
         })
     end,
 }

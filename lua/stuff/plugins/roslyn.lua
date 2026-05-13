@@ -1,6 +1,7 @@
 return {
     "seblyng/roslyn.nvim",
     lazy = false,
+    enabled = false,
     config = function()
         vim.lsp.config("roslyn", {
             on_attach = function()
