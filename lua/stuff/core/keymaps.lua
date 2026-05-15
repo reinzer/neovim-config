@@ -48,7 +48,7 @@ keymap({"n", "v", "x", "o"}, C.right, "$", opts) --move the cursor to the end of
 --keymap({"n", "v", "x", "o"}, C.up, "gg", opts) --move the cursor to the start of a file
 --keymap({"n", "v", "x", "o"}, C.down, "G", opts) --move the cursor to the end of a file
 
-keymap({"n", "v", "x", "o"}, "d", '"_d', opts) --delete selection without copying to register
+keymap({"n", "v", "x", "o"}, "<A-d>", '"_d', opts) --delete selection without copying to register
 keymap({"n"}, "<leader>a", ':split | terminal<CR>', opts) -- "CR" is "Enter"
 
 keymap({"v"}, "<C-"..D.down..">", ":m '>+1<Enter>gv=gv", opts) --move line down
@@ -104,7 +104,7 @@ local function show_diagnostics()
     vim.diagnostic.config({
         signs = { text = signs },
         virtual_text = true,
-        underline = true,
+        underline = false,
         --update_in_insert = true,
         float = {
             focusable = false,

@@ -66,8 +66,8 @@ return {
         vim.diagnostic.config({
             signs = { text = signs },
             virtual_text = true,
-            underline = true,  -- Always on
-            update_in_insert = true,
+            underline = false,
+			update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",
@@ -429,7 +429,8 @@ return {
             --"vscode-timgjones-hlsl-lsp",
             --"godot_shader_lsp",
             --"omnisharp",
-            "csharp_ls",
+            --"csharp_ls",
+			--"roslyn",
         })
     end,
 }
