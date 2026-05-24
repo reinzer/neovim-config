@@ -45,7 +45,7 @@ return {
                 opts.desc = "Show documentation for what is under cursor"
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-                opts.desc = "Rsstart LSP"
+                opts.desc = "Restart LSP"
                 vim.keymap.set("n", "<leader>rs", ":lsp restart<CR>", opts)
 
                 vim.keymap.set({"n"}, "<C-h>", function()

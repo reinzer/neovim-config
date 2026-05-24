@@ -28,9 +28,11 @@ vim.api.nvim_create_autocmd("TextYankPost", { -- highlight line when yank
 	end,
 })
 
-local quotes = {"'", '"'}
+local quotes = {"'", '"', "(", ")", "{", "}", "[", "]", "<", ">"}
 	for _,i in ipairs(quotes) do
 		keymap("v", string.format("<leader>%s", i), string.format("c%s%s<Esc>P", i, i), opts)
+		keymap({"n", "v"}, string.format("di%s", i), string.format('"_di%s', i), opts)
+		keymap({"n", "v"}, string.format("ci%s", i), string.format('"_ci%s', i), opts)
 end
 
 --keymap({"n"}, "<A-e-c>", ':w<Enter>:!gcc % -o %:r && ./%:r<Enter>') --example to compile and execute C code
@@ -51,15 +53,17 @@ keymap({"n", "v", "x", "o"}, C.right, "$", opts) --move the cursor to the end of
 keymap({"n", "v", "x", "o"}, "dd", '"_dd', opts) --delete selection without copying to register
 keymap({"n", "v", "x", "o"}, "d", '"_d', opts) --delete selection without copying to register
 keymap({"n", "v", "x", "o"}, "diw", '"_diw', opts) --delete selection without copying to register
-keymap({"n", "v", "x", "o"}, 'di\"', '"_di\"', opts) --delete selection without copying to register
-keymap({"n", "v", "x", "o"}, 'di\'', '"_di\'', opts) --delete selection without copying to register
+keymap({"n", "v", "x", "o"}, "ciw", '"_ciw', opts) --delete selection without copying to register
 
 keymap({"n"}, "<leader>a", ':split | terminal<CR>', opts) -- "CR" is "Enter"
 
-keymap({"v"}, "<C-"..D.down..">", ":m '>+1<Enter>gv=gv", opts) --move line down
-keymap({"v"}, "<C-"..D.up..">", ":m '<-2<Enter>gv=gv", opts) --move line up
+keymap({"v"}, "<C-"..D.up..">", ":m '<-2<Enter>gv", opts) --move line up
+keymap({"v"}, "<C-"..D.down..">", ":m '>+1<Enter>gv", opts) --move line down
 keymap({"v"}, "<C-"..D.left..">", '<gv', opts) --move line left
 keymap({"v"}, "<C-"..D.right..">", '>gv', opts) --move line right
+
+--shortcut for commenting
+--keymap({"v"}, "<leader>c", ":s/^/", opts)
 
 --[[local parantheses = {"[]", "()", "{}", "<>"}
 for _,i in ipairs(parantheses) do
@@ -108,7 +112,7 @@ end
 local function show_diagnostics()
     vim.diagnostic.config({
         signs = { text = signs },
-        virtual_text = true,
+        virtual_text = false,
         underline = false,
         --update_in_insert = true,
         float = {
@@ -124,4 +128,34 @@ end
 vim.keymap.set("n", "<leader>dh", hide_diagnostics, opts)
 vim.keymap.set("n", "<leader>ds", show_diagnostics, opts)
 
---hide_diagnostics()
+--comment & uncomment
+local non_c_line_comments_by_filetype = {
+    lua = "--",
+    python = "#",
+    bash = "#",
+    sh = "#",
+    sql = "--",
+}
+local function comment_out(opts)
+    local line_comment = non_c_line_comments_by_filetype[vim.bo.filetype] or "//"
+    local start = math.min(opts.line1, opts.line2)
+    local finish = math.max(opts.line1, opts.line2)
+
+    vim.api.nvim_command(start .. "," .. finish .. "s:^:" .. line_comment .. ":")
+    vim.api.nvim_command("noh")
+end
+local function uncomment(opts)
+    local line_comment = non_c_line_comments_by_filetype[vim.bo.filetype] or "//"
+    local start = math.min(opts.line1, opts.line2)
+    local finish = math.max(opts.line1, opts.line2)
+
+    pcall(vim.api.nvim_command, start .. "," .. finish .. "s:^\\(\\s\\{-\\}\\)" .. line_comment .. ":\\1:")
+    vim.api.nvim_command("noh")
+end
+vim.api.nvim_create_user_command("CommentOut", comment_out, { range = true })
+vim.keymap.set("v", "<leader>co", ":CommentOut<CR>gv")
+vim.keymap.set("n", "<leader>co", ":CommentOut<CR>")
+
+vim.api.nvim_create_user_command("Uncomment", uncomment, { range = true })
+vim.keymap.set("v", "<leader>uc", ":Uncomment<CR>gv")
+vim.keymap.set("n", "<leader>uc", ":Uncomment<CR>")
