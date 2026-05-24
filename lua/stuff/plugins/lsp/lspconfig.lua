@@ -14,6 +14,7 @@ return {
                 -- Keymaps
                 opts.desc = "Show LSP references"
                 vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+								vim.keymap.set("n", "<leader>r", "<cmd>Telescope resume<CR>", opts)
 
                 opts.desc = "Go to declaration"
                 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -44,10 +45,10 @@ return {
                 opts.desc = "Show documentation for what is under cursor"
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-                opts.desc = "Restart LSP"
+                opts.desc = "Rsstart LSP"
                 vim.keymap.set("n", "<leader>rs", ":lsp restart<CR>", opts)
 
-                vim.keymap.set("i", "<C-h>", function()
+                vim.keymap.set({"n"}, "<C-h>", function()
                     vim.lsp.buf.signature_help()
                 end, opts)
             end,
@@ -75,6 +76,14 @@ return {
                 source = true,
             },
         })
+
+		vim.diagnostic.config({
+			virtual_text = false,
+			signs = false,
+			underline = false,
+			virtual_lines = false,
+			float = false,
+		})
 
         -- <leader>lx toggle for virtual text (no hover changes)
         vim.keymap.set("n", "<leader>lx", function()
