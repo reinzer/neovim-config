@@ -331,6 +331,17 @@ return {
             },
         })
 
+        vim.lsp.config("basedpyright", {
+--            filetypes = {
+--            },
+--            settings = {
+--				python = {
+--					pythonPath = "~/.pyenv/versions/3.13.9/bin/python",
+--					venvPath = "~/.pyenv",
+--				},
+--			}
+        })
+
         -- gopls
         vim.lsp.config("gopls", {
             settings = {
@@ -422,7 +433,7 @@ return {
             --"csharp_ls",
             --"snyk_ls",
             --"ccls",
-            "pylsp",
+--            "pylsp",
             "jdtls",
             "shellcheck",
             "bashls",
@@ -440,6 +451,8 @@ return {
             --"omnisharp",
             --"csharp_ls",
 			--"roslyn",
+			"basedpyright",
+--			"ruff",
         })
     end,
 }

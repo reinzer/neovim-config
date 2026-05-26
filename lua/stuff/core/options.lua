@@ -1,6 +1,6 @@
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 --vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -16,6 +16,8 @@ vim.opt.scrolloff = 50
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
 vim.o.termguicolors = true
+
+vim.o.timeoutlen = 300
 
 --[[vim.opt.termguicolors = true
 vim.opt.background = "dark"

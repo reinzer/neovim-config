@@ -34,6 +34,8 @@ return {
             automatic_enable = false,
             -- servers for mason to install
             ensure_installed = {
+				"basedpyright",
+				"ruff",
                 "lua_ls",
                 "ts_ls",
                 "html",

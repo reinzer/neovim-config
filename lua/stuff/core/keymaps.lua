@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd("TextYankPost", { -- highlight line when yank
 local quotes = {"'", '"', "(", ")", "{", "}", "[", "]", "<", ">"}
 	for _,i in ipairs(quotes) do
 		keymap("v", string.format("<leader>%s", i), string.format("c%s%s<Esc>P", i, i), opts)
-		keymap({"n", "v"}, string.format("di%s", i), string.format('"_di%s', i), opts)
+		keymap({"n"}, string.format("di%s", i), string.format('"_di%s', i), opts)
 		keymap({"n", "v"}, string.format("ci%s", i), string.format('"_ci%s', i), opts)
 end
 
@@ -50,10 +50,11 @@ keymap({"n", "v", "x", "o"}, C.right, "$", opts) --move the cursor to the end of
 --keymap({"n", "v", "x", "o"}, C.up, "gg", opts) --move the cursor to the start of a file
 --keymap({"n", "v", "x", "o"}, C.down, "G", opts) --move the cursor to the end of a file
 
-keymap({"n", "v", "x", "o"}, "dd", '"_dd', opts) --delete selection without copying to register
-keymap({"n", "v", "x", "o"}, "d", '"_d', opts) --delete selection without copying to register
-keymap({"n", "v", "x", "o"}, "diw", '"_diw', opts) --delete selection without copying to register
-keymap({"n", "v", "x", "o"}, "ciw", '"_ciw', opts) --delete selection without copying to register
+keymap({"n"}, "dd", '"_dd', opts) --delete selection without copying to register
+keymap({"n"}, "d", '"_d', opts) --delete selection without copying to register
+keymap({"v", "x", "o"}, "d", '"_d', {nowait = true, noremap = true, silent = true}) --delete selection without copying to register
+keymap({"n"}, "diw", '"_diw', opts) --delete selection without copying to register
+keymap({"n"}, "ciw", '"_ciw', opts) --delete selection without copying to register
 
 keymap({"n"}, "<leader>a", ':split | terminal<CR>', opts) -- "CR" is "Enter"
 
@@ -125,8 +126,8 @@ local function show_diagnostics()
     require('cmp').setup { enabled = true }
     --print("Diagnostic turned on")
 end
-vim.keymap.set("n", "<leader>dh", hide_diagnostics, opts)
-vim.keymap.set("n", "<leader>ds", show_diagnostics, opts)
+vim.keymap.set("n", "<leader>hd", hide_diagnostics, opts)
+vim.keymap.set("n", "<leader>sd", show_diagnostics, opts)
 
 --comment & uncomment
 local non_c_line_comments_by_filetype = {
