@@ -17,7 +17,7 @@ vim.opt.ignorecase = true
 vim.opt.incsearch = true
 vim.o.termguicolors = true
 
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 500
 
 --[[vim.opt.termguicolors = true
 vim.opt.background = "dark"

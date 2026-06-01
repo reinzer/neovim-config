@@ -52,6 +52,7 @@ keymap({"n", "v", "x", "o"}, C.right, "$", opts) --move the cursor to the end of
 
 keymap({"n"}, "dd", '"_dd', opts) --delete selection without copying to register
 keymap({"n"}, "d", '"_d', opts) --delete selection without copying to register
+keymap({"v"}, "cd", 'd', opts)
 keymap({"v", "x", "o"}, "d", '"_d', {nowait = true, noremap = true, silent = true}) --delete selection without copying to register
 keymap({"n"}, "diw", '"_diw', opts) --delete selection without copying to register
 keymap({"n"}, "ciw", '"_ciw', opts) --delete selection without copying to register
