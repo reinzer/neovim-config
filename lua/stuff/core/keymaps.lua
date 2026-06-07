@@ -37,13 +37,13 @@ end
 
 --keymap({"n"}, "<A-e-c>", ':w<Enter>:!gcc % -o %:r && ./%:r<Enter>') --example to compile and execute C code
 
-keymap({"n", "v", "x", "o"}, D.left, "h", opts)
-keymap({"n", "v", "x", "o"}, D.up, "k", opts)
-keymap({"n", "v", "x", "o"}, D.down, "j", opts)
-keymap({"n", "v", "x", "o"}, D.right, "l", opts)
+keymap({"n", "v", "x", "o", "t", "s"}, D.left, "h", opts)
+keymap({"n", "v", "x", "o", "t", "s"}, D.up, "k", opts)
+keymap({"n", "v", "x", "o", "t", "s"}, D.down, "j", opts)
+keymap({"n", "v", "x", "o", "t", "s"}, D.right, "l", opts)
 
-keymap({"n", "i", "v", "x", "o"}, "<A-k>", "<Esc>", opts)
-keymap({"n", "i", "v", "x", "o"}, "<A-BS>", "<delete>", opts) -- (Alt+BackSpace)
+keymap({"n", "i", "v", "x", "o", "t", "s"}, "<A-k>", "<Esc>", opts)
+keymap({"n", "i", "v", "x", "o", "t", "s"}, "<A-BS>", "<delete>", opts) -- (Alt+BackSpace)
 
 keymap({"n", "v", "x", "o"}, C.left, "0", opts) --move the cursor to the start of a line
 keymap({"n", "v", "x", "o"}, C.right, "$", opts) --move the cursor to the end of a line
