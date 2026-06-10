@@ -75,7 +75,7 @@ return {
                 "clangd",
                 "denols",
                 "shellcheck",
-                "cpplint",
+--                "cpplint",
                 "beautysh",
                 "htmlhint",
                 "eslint_d",

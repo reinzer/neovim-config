@@ -37,12 +37,51 @@ end
 
 --keymap({"n"}, "<A-e-c>", ':w<Enter>:!gcc % -o %:r && ./%:r<Enter>') --example to compile and execute C code
 
-keymap({"n", "v", "x", "o", "t", "s"}, D.left, "h", opts)
-keymap({"n", "v", "x", "o", "t", "s"}, D.up, "k", opts)
-keymap({"n", "v", "x", "o", "t", "s"}, D.down, "j", opts)
-keymap({"n", "v", "x", "o", "t", "s"}, D.right, "l", opts)
+keymap({"n", "v", "x", "o", "s"}, D.left, "h", opts)
+keymap({"n", "v", "x", "o", "s"}, D.up, "k", opts)
+keymap({"n", "v", "x", "o", "s"}, D.down, "j", opts)
+keymap({"n", "v", "x", "o", "s"}, D.right, "l", opts)
 
-keymap({"n", "i", "v", "x", "o", "t", "s"}, "<A-k>", "<Esc>", opts)
+local has_nested_nvim_script = [=[for i in $(pgrep -P $PPID)
+		do if [[ $(cat /proc/$i/comm) == bash ]]
+		then for j in $(pgrep -P $i);do 
+		if [[ $(cat /proc/$j/comm) == nvim ]]
+		then SCRIPT_RESULT=YES; break 2;
+		fi;
+		done
+		fi;
+		done;
+
+		if [[ $SCRIPT_RESULT == YES ]]; then printf YES; else printf NO; fi
+		]=]
+
+keymap({"t"}, "<Esc>",
+	function()
+		local has_nested_nvim = vim.system({"bash", "-c", has_nested_nvim_script}):wait().stdout
+
+		if(has_nested_nvim == "YES")
+		then
+			local keys = vim.api.nvim_replace_termcodes("<A-k>", true, false, true)
+			vim.api.nvim_feedkeys(keys, "n", false)
+			return ""
+		else return "<C-\\><C-n>"
+		end
+	end, {expr = true})
+
+keymap({"t"}, "<A-k>",
+	function()
+		local has_nested_nvim = vim.system({"bash", "-c", has_nested_nvim_script}):wait().stdout
+
+		if(has_nested_nvim == "YES")
+		then
+			local keys = vim.api.nvim_replace_termcodes("<A-k>", true, false, true)
+			vim.api.nvim_feedkeys(keys, "n", false)
+			return ""
+		else return "<C-\\><C-n>"
+		end
+	end, {expr = true})
+
+keymap({"n", "i", "v", "x", "o", "s"}, "<A-k>", "<Esc>", opts)
 keymap({"n", "i", "v", "x", "o", "t", "s"}, "<A-BS>", "<delete>", opts) -- (Alt+BackSpace)
 
 keymap({"n", "v", "x", "o"}, C.left, "0", opts) --move the cursor to the start of a line
@@ -92,6 +131,16 @@ keymap('n', "q", ":q<Enter>", opts)
 keymap('n', "Q", ":q!<Enter>", opts)
 keymap('n', "w", ":w<Enter>", opts)
 keymap('n', "e", ":Ex<Enter>", opts)
+
+vim.api.nvim_create_autocmd("TermOpen", {
+	pattern = "*",
+	callback = function(ev)
+		vim.opt.number = false
+		vim.schedule(function()
+			vim.cmd("startinsert")
+		end)
+	end
+})
 
 local signs = {
     [vim.diagnostic.severity.ERROR] = " ",

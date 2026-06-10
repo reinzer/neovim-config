@@ -28,7 +28,7 @@ return {
 --				default = 'doing cool things in neovim yea', -- applies to all unset categories
 				workspace = function(opts) return 'In ' .. opts.workspace end, -- overrides the default
 				editing = function(opts)
-					return string.format('doing cool stuff in %s:%d:%d', opts.filename, opts.cursor_line, opts.cursor_char)
+					return string.format('doing cool stuff in %s', opts.filename, opts.cursor_line, opts.cursor_char)
 				end,
 			},
 			hooks = {
