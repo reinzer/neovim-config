@@ -85,6 +85,8 @@ return {
 			float = false,
 		})
 
+		require('cmp').setup { enabled = false }
+
         -- <leader>lx toggle for virtual text (no hover changes)
         vim.keymap.set("n", "<leader>lx", function()
             local current = vim.diagnostic.config().virtual_text
