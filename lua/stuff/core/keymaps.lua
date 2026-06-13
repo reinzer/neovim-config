@@ -103,7 +103,7 @@ keymap({"v"}, "<C-"..D.down..">", ":m '>+1<Enter>gv", opts) --move line down
 keymap({"v"}, "<C-"..D.left..">", '<gv', opts) --move line left
 keymap({"v"}, "<C-"..D.right..">", '>gv', opts) --move line right
 
-keymap({"v"}, "y", 'ygv', opts)
+keymap({"n", "v", "x", "o", "s"}, "y", 'ygv', opts)
 --shortcut for commenting
 --keymap({"v"}, "<leader>c", ":s/^/", opts)
 
