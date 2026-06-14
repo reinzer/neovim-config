@@ -177,8 +177,17 @@ local function show_diagnostics()
     require('cmp').setup { enabled = true }
     --print("Diagnostic turned on")
 end
-vim.keymap.set("n", "<leader>hd", hide_diagnostics, opts)
-vim.keymap.set("n", "<leader>sd", show_diagnostics, opts)
+local diagnostics_enabled = false
+local function toggle_diagnostics()
+	diagnostics_enabled = not diagnostics_enabled
+	if diagnostics_enabled
+	then
+		show_diagnostics()
+	else
+		hide_diagnostics()
+	end
+end
+vim.keymap.set("n", "<A-d>", toggle_diagnostics, opts)
 
 --comment & uncomment
 local non_c_line_comments_by_filetype = {
