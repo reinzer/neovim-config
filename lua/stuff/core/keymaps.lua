@@ -82,6 +82,7 @@ keymap({"t"}, "<A-k>",
 	end, {expr = true})
 
 keymap({"n", "i", "v", "x", "o", "s"}, "<A-k>", "<Esc>", opts)
+
 keymap({"n", "i", "v", "x", "o", "t", "s"}, "<A-BS>", "<delete>", opts) -- (Alt+BackSpace)
 
 keymap({"n", "v", "x", "o"}, C.left, "0", opts) --move the cursor to the start of a line
@@ -89,9 +90,10 @@ keymap({"n", "v", "x", "o"}, C.right, "$", opts) --move the cursor to the end of
 --keymap({"n", "v", "x", "o"}, C.up, "gg", opts) --move the cursor to the start of a file
 --keymap({"n", "v", "x", "o"}, C.down, "G", opts) --move the cursor to the end of a file
 
-keymap({"n"}, "dd", '"_dd', opts) --delete selection without copying to register
-keymap({"n"}, "d", '"_d', opts) --delete selection without copying to register
-keymap({"v"}, "cd", 'd', opts)
+keymap({"n"}, "dd", '"_dd', opts) --delete without copying to register
+keymap({"n"}, "d", '"_d', opts) --delete without copying to register
+keymap({"n"}, "x", '"_x', opts) --delete without copying to register
+keymap({"v"}, "cd", "d", opts)
 keymap({"v", "x", "o"}, "d", '"_d', {nowait = true, noremap = true, silent = true}) --delete selection without copying to register
 keymap({"n"}, "diw", '"_diw', opts) --delete selection without copying to register
 keymap({"n"}, "ciw", '"_ciw', opts) --delete selection without copying to register
@@ -103,7 +105,8 @@ keymap({"v"}, "<C-"..D.down..">", ":m '>+1<Enter>gv", opts) --move line down
 keymap({"v"}, "<C-"..D.left..">", '<gv', opts) --move line left
 keymap({"v"}, "<C-"..D.right..">", '>gv', opts) --move line right
 
-keymap({"n", "v", "x", "o", "s"}, "y", 'ygv', opts)
+keymap({"v"}, "y", 'ygv', opts)
+
 --shortcut for commenting
 --keymap({"v"}, "<leader>c", ":s/^/", opts)
 
